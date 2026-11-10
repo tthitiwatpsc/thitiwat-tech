@@ -1,0 +1,6 @@
+{
+  "name": "SciTech AI Teacher Training Platform",
+  "description": "แพลตฟอร์มการอบรมและพัฒนาศักยภาพครูผู้สอนวิทยาศาสตร์และเทคโนโลยีในยุค AI พร้อมภารกิจการเรียนรู้และระบบติดตามผลแบบเรียลไทม์",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
