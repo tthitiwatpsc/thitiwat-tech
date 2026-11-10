@@ -1,7 +1,7 @@
 import React from 'react';
 import { Participant } from '../types';
-import { INITIAL_BADGES } from '../data/mockData';
-import { Trophy, Award, CheckCircle2, ArrowRight, Microscope, ShieldCheck, Sparkles, Lightbulb, Play, Star } from 'lucide-react';
+import { Award, CheckCircle2, ArrowRight, Microscope, ShieldCheck, Sparkles, Lightbulb } from 'lucide-react';
+import { Avatar } from './Avatar';
 
 interface OverviewDashboardProps {
   activeParticipant: Participant;
@@ -64,18 +64,18 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           
           <div className="flex items-center space-x-4">
-            <img
+            <Avatar
               src={activeParticipant.avatar}
-              alt={activeParticipant.name}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-cyan-400 shadow-xl flex-shrink-0"
+              name={activeParticipant.name}
+              className="w-16 h-16 sm:w-20 sm:h-20 border-2 border-cyan-400 shadow-xl text-xl"
             />
             <div className="space-y-1">
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white">
                   สวัสดีครับ, {activeParticipant.name}
                 </h2>
-                <span className="bg-cyan-500/20 text-cyan-300 text-xs px-2.5 py-0.5 rounded-full font-bold border border-cyan-500/30">
-                  {activeParticipant.demographics?.schoolName || 'ครูผู้เข้าอบรม'}
+                <span className="text-xs text-cyan-300 font-medium">
+                  · {activeParticipant.demographics?.schoolName || 'ครูผู้เข้าอบรม'}
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-slate-300">
@@ -86,13 +86,13 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
 
           <div className="flex items-center space-x-4 bg-slate-900/80 p-4 rounded-2xl border border-slate-800 flex-shrink-0">
             <div className="text-center px-2">
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">คะแนน XP รวม</span>
-              <span className="text-xl font-extrabold text-amber-400">{activeParticipant.xp}</span>
+              <span className="text-[11px] text-slate-400 font-semibold block">คะแนน XP รวม</span>
+              <span className="text-xl font-extrabold text-amber-400 tabular-nums">{activeParticipant.xp}</span>
             </div>
             <div className="h-8 w-px bg-slate-800" />
             <div className="text-center px-2">
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">ความคืบหน้า</span>
-              <span className="text-xl font-extrabold text-cyan-400">{completedCount} / {totalMissionsCount}</span>
+              <span className="text-[11px] text-slate-400 font-semibold block">ความคืบหน้า</span>
+              <span className="text-xl font-extrabold text-cyan-400 tabular-nums">{completedCount} / {totalMissionsCount}</span>
             </div>
           </div>
 

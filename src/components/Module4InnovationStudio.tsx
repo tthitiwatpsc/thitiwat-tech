@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Participant, InnovationProject } from '../types';
-import { Lightbulb, Send, Sparkles, CheckCircle2, Award, FileText, Bot, RefreshCw, Eye } from 'lucide-react';
+import { Lightbulb, Send, Sparkles, CheckCircle2, RefreshCw, AlertCircle } from 'lucide-react';
 import { updateParticipantProgress } from '../services/storageService';
 import confetti from 'canvas-confetti';
 
@@ -24,7 +24,8 @@ export const Module4InnovationStudio: React.FC<Module4Props> = ({
   const [expectedOutcome, setExpectedOutcome] = useState(existingProject?.expectedOutcome || '');
 
   const [isGeneratingPlan, setIsGeneratingPlan] = useState(false);
-  const [generatedPlanText, setGeneratedPlanText] = useState('');
+  const [generatedPlanText, setGeneratedPlanText] = useState(existingProject?.description || '');
+  const [formError, setFormError] = useState('');
 
   const AI_TOOL_OPTIONS = [
     'Gemini Visual Prompting',
@@ -46,9 +47,10 @@ export const Module4InnovationStudio: React.FC<Module4Props> = ({
   // Auto Generate Plan using Gemini AI
   const handleAutoGeneratePlan = async () => {
     if (!title.trim() || !problemStatement.trim()) {
-      alert('กรุณากรอกชื่อนวัตกรรมและปัญหาสภาพจริงก่อนกดสร้างแผนนะครับ');
+      setFormError('กรุณากรอกชื่อนวัตกรรมและปัญหาสภาพจริงก่อนกดสร้างแผนด้วย AI นะครับ');
       return;
     }
+    setFormError('');
 
     setIsGeneratingPlan(true);
     try {
@@ -180,7 +182,7 @@ export const Module4InnovationStudio: React.FC<Module4Props> = ({
                   <option value="ม.3">มัธยมศึกษาปีที่ 3</option>
                   <option value="ม.4">มัธยมศึกษาปีที่ 4</option>
                   <option value="ม.5">มัธยมศึกษาปีที่ 5</option>
-                  <option value="ม.6">ม.6</option>
+                  <option value="ม.6">มัธยมศึกษาปีที่ 6</option>
                 </select>
               </div>
             </div>
@@ -223,6 +225,13 @@ export const Module4InnovationStudio: React.FC<Module4Props> = ({
                 })}
               </div>
             </div>
+
+            {formError && (
+              <div className="p-3 bg-amber-950/50 border border-amber-500/40 rounded-xl text-amber-300 text-xs flex items-center space-x-2">
+                <AlertCircle className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <span>{formError}</span>
+              </div>
+            )}
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <button

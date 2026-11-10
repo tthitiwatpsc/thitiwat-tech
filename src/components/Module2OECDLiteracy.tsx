@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Participant } from '../types';
 import { OECD_SCENARIOS } from '../data/mockData';
-import { ShieldCheck, BookOpen, Brain, CheckCircle2, Award, ArrowRight, Lightbulb, AlertTriangle } from 'lucide-react';
+import { ShieldCheck, Brain, CheckCircle2, ArrowRight, AlertTriangle } from 'lucide-react';
 import { updateParticipantProgress } from '../services/storageService';
 import confetti from 'canvas-confetti';
 
@@ -17,22 +17,25 @@ export const Module2OECDLiteracy: React.FC<Module2Props> = ({
   const [activeScenarioIdx, setActiveScenarioIdx] = useState<number>(0);
   const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: number }>({});
   const [submittedScenarios, setSubmittedScenarios] = useState<boolean>(!!activeParticipant.completedMissions?.m2_oecd_literacy);
+  const [validationError, setValidationError] = useState<string>('');
 
   // LLM Token Visualizer State
-  const [inputText, setInputText] = useState('พืชสังเคราะห์ด้วยแสงเปลี่ยนพลังงานแสงเป็นพลังงานเคมีในรูปน้ำตาลกูโลโคส');
+  const [inputText, setInputText] = useState('พืชสังเคราะห์ด้วยแสงเปลี่ยนพลังงานแสงเป็นพลังงานเคมีในรูปน้ำตาลกลูโคส');
 
   const scenario = OECD_SCENARIOS[activeScenarioIdx];
 
   const handleSelectOption = (scenarioId: string, optIdx: number) => {
     setSelectedOptions(prev => ({ ...prev, [scenarioId]: optIdx }));
+    setValidationError('');
   };
 
   const handleCompleteMission = () => {
     const isAllAnswered = OECD_SCENARIOS.every(s => selectedOptions[s.id] !== undefined);
     if (!isAllAnswered) {
-      alert('กรุณาตอบคำถามให้ครบทั้ง 3 สถานการณ์ก่อนส่งนะครับ');
+      setValidationError('กรุณาตอบคำถามให้ครบทั้ง 3 สถานการณ์ (คลิกปุ่ม 1, 2, 3 ด้านบนเพื่อสลับข้อ) ก่อนส่งนะครับ');
       return;
     }
+    setValidationError('');
 
     // Check correct answers
     let correctCount = 0;
@@ -220,6 +223,13 @@ export const Module2OECDLiteracy: React.FC<Module2Props> = ({
               );
             })}
           </div>
+
+          {validationError && (
+            <div className="p-3 bg-amber-950/50 border border-amber-500/40 rounded-xl text-amber-300 text-xs flex items-center space-x-2">
+              <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0" />
+              <span>{validationError}</span>
+            </div>
+          )}
 
           <div className="pt-4 flex justify-between items-center">
             <span className="text-xs text-slate-400">

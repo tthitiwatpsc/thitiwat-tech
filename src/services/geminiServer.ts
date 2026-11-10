@@ -19,7 +19,7 @@ export async function generateGeminiContent(prompt: string, systemInstruction?: 
   try {
     const ai = getGeminiClient();
     const response = await ai.models.generateContent({
-      model: 'gemini-3.6-flash',
+      model: 'gemini-3.8-flash',
       contents: prompt,
       config: {
         systemInstruction: systemInstruction || 'คุณคือผู้ช่วย AI ผู้เชี่ยวชาญด้านการจัดการเรียนรู้วิทยาศาสตร์และเทคโนโลยีระดับมัธยมศึกษา ตอบเป็นภาษาไทยอย่างชัดเจน สร้างสรรค์ และถูกต้องตามหลักวิชาการ',
@@ -41,7 +41,7 @@ export async function evaluatePromptQuality(promptText: string) {
   try {
     const ai = getGeminiClient();
     const response = await ai.models.generateContent({
-      model: 'gemini-3.6-flash',
+      model: 'gemini-3.8-flash',
       contents: `กรุณาวิเคราะห์และประเมินคุณภาพของ Prompt ต่อไปนี้สำหรับการนำไปใช้ในการจัดการเรียนรู้วิทยาศาสตร์และเทคโนโลยี:\n\n"${promptText}"`,
       config: {
         systemInstruction: `คุณคือผู้เชี่ยวชาญด้าน Prompt Engineering ทางการศึกษา 
@@ -113,7 +113,7 @@ export async function generateInnovationPlan(params: {
 กรุณาสร้างแผนนวัตกรรมแบบละเอียดที่นำไปปฏิบัติได้จริงในห้องเรียน`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.6-flash',
+      model: 'gemini-3.8-flash',
       contents: prompt,
       config: {
         systemInstruction: `คุณคือศึกษานิเทศก์และนักนวัตกรรมการศึกษาวิทยาศาสตร์ 

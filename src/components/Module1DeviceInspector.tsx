@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Participant, DeviceInspectorItem } from '../types';
 import { DEVICE_INSPECTOR_ITEMS } from '../data/mockData';
-import { Eye, Brain, Zap, Microscope, CheckCircle2, Award, ArrowRight, HelpCircle } from 'lucide-react';
+import { Eye, Brain, Zap, Microscope, CheckCircle2, ArrowRight, HelpCircle, AlertCircle } from 'lucide-react';
 import { updateParticipantProgress } from '../services/storageService';
 import confetti from 'canvas-confetti';
 
@@ -19,8 +19,10 @@ export const Module1DeviceInspector: React.FC<Module1Props> = ({
   const [exploredDevices, setExploredDevices] = useState<string[]>(['dev_1']);
 
   // Quiz state
-  const [quizAnswer, setQuizAnswer] = useState<number | null>(null);
-  const [quizSubmitted, setQuizSubmitted] = useState<boolean>(!!activeParticipant.completedMissions?.m1_device_inspector);
+  const isAlreadyDone = !!activeParticipant.completedMissions?.m1_device_inspector;
+  const [quizAnswer, setQuizAnswer] = useState<number | null>(isAlreadyDone ? 0 : null);
+  const [quizSubmitted, setQuizSubmitted] = useState<boolean>(isAlreadyDone);
+  const [quizError, setQuizError] = useState<string>('');
 
   const handleSelectDevice = (dev: DeviceInspectorItem) => {
     setSelectedDevice(dev);
@@ -31,6 +33,7 @@ export const Module1DeviceInspector: React.FC<Module1Props> = ({
 
   const handleCompleteMission = () => {
     if (quizAnswer === 0) { // Correct answer index
+      setQuizError('');
       updateParticipantProgress(activeParticipant.id, {
         xpGain: 150,
         badgeId: 'b_m1',
@@ -42,7 +45,7 @@ export const Module1DeviceInspector: React.FC<Module1Props> = ({
       setQuizSubmitted(true);
       onMissionCompleted();
     } else {
-      alert('คำตอบยังไม่ถูกต้อง ลองพิจารณาหลักการ "รู้ คิด ปฏิบัติ" อีกครั้งนะครับ');
+      setQuizError('คำตอบยังไม่ถูกต้อง ลองพิจารณาหลักการ "รู้ คิด ปฏิบัติ" อีกครั้งนะครับ');
     }
   };
 
@@ -93,7 +96,8 @@ export const Module1DeviceInspector: React.FC<Module1Props> = ({
                   <img
                     src={dev.image}
                     alt={dev.name}
-                    className="w-14 h-14 rounded-xl object-cover border border-slate-700 flex-shrink-0"
+                    referrerPolicy="no-referrer"
+                    className="w-14 h-14 rounded-xl object-cover border border-slate-700 flex-shrink-0 bg-slate-800"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
@@ -133,7 +137,8 @@ export const Module1DeviceInspector: React.FC<Module1Props> = ({
               <img
                 src={selectedDevice.image}
                 alt={selectedDevice.name}
-                className="w-full sm:w-32 h-24 rounded-2xl object-cover border border-slate-700 shadow-md"
+                referrerPolicy="no-referrer"
+                className="w-full sm:w-32 h-24 rounded-2xl object-cover border border-slate-700 shadow-md bg-slate-800"
               />
             </div>
 
@@ -290,13 +295,23 @@ export const Module1DeviceInspector: React.FC<Module1Props> = ({
                   type="radio"
                   name="m1_quiz"
                   checked={quizAnswer === opt.id}
-                  onChange={() => setQuizAnswer(opt.id)}
+                  onChange={() => {
+                    setQuizAnswer(opt.id);
+                    setQuizError('');
+                  }}
                   className="accent-cyan-400 w-4 h-4"
                 />
                 <span className="text-xs sm:text-sm">{opt.text}</span>
               </label>
             ))}
           </div>
+
+          {quizError && (
+            <div className="p-3 bg-rose-950/50 border border-rose-500/40 rounded-xl text-rose-300 text-xs flex items-center space-x-2">
+              <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+              <span>{quizError}</span>
+            </div>
+          )}
 
           {!quizSubmitted ? (
             <button

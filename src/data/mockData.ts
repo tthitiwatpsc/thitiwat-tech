@@ -43,7 +43,7 @@ export const INITIAL_PARTICIPANTS: Participant[] = [
     id: 'p1',
     name: 'ดร.วิภา สุวรรณรัตน์',
     email: 'wipha@school.ac.th',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+    avatar: '',
     demographics: {
       gender: 'หญิง',
       age: '30–40 ปี',
@@ -71,7 +71,7 @@ export const INITIAL_PARTICIPANTS: Participant[] = [
       targetGrade: 'ม.5',
       problemStatement: 'นักเรียนมองไม่เห็นภาพการเคลื่อนที่ของโมเลกุลในปฏิกิริยารีดอกซ์ และการทดลองสารเคมีอันตรายทำได้จำกัด',
       aiToolsUsed: ['Gemini Visual Prompting', 'AI Molecular Simulation', 'Socratic Chatbot'],
-      description: 'ใช้ Gemini ช่วยสร้างภาพจำลองระดับโมเลกุล พร้อมตั้งโจทย์คำถามสocratic นำทางให้นักเรียนทำความเข้าใจกระบวนการถ่ายโอนอิเล็กตรอนด้วยตนเอง',
+      description: 'ใช้ Gemini ช่วยสร้างภาพจำลองระดับโมเลกุล พร้อมตั้งโจทย์คำถามแบบโซเครติส (Socratic) นำทางให้นักเรียนทำความเข้าใจกระบวนการถ่ายโอนอิเล็กตรอนด้วยตนเอง',
       expectedOutcome: 'นักเรียนมีความเข้าใจมโนทัศน์เรื่องรีดอกซ์เพิ่มขึ้น 35% และลดความเสี่ยงอุบัติเหตุในห้องแล็ป',
       submittedAt: '2026-07-30T08:30:00Z',
       score: 95,
@@ -90,7 +90,7 @@ export const INITIAL_PARTICIPANTS: Participant[] = [
     id: 'p2',
     name: 'ครูธนกฤต ใจดี',
     email: 'thanakrit@school.ac.th',
-    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&auto=format&fit=crop&q=80',
+    avatar: '',
     demographics: {
       gender: 'ชาย',
       age: '30–40 ปี',
@@ -123,7 +123,7 @@ export const INITIAL_PARTICIPANTS: Participant[] = [
     id: 'p3',
     name: 'ครูสมชาย ศรีสุข (คุณ)',
     email: 'somchai@school.ac.th',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    avatar: '',
     demographics: {
       gender: 'ชาย',
       age: '41–50 ปี',
@@ -150,7 +150,7 @@ export const INITIAL_PARTICIPANTS: Participant[] = [
     id: 'p4',
     name: 'ครูภัทรา วงศ์สว่าง',
     email: 'phattra@school.ac.th',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80',
+    avatar: '',
     demographics: {
       gender: 'หญิง',
       age: 'ต่ำกว่า 30 ปี',
@@ -178,10 +178,10 @@ export const INITIAL_PARTICIPANTS: Participant[] = [
 export const DEVICE_INSPECTOR_ITEMS: DeviceInspectorItem[] = [
   {
     id: 'dev_1',
-    name: 'กล้องกล้องจุลทรรศน์ตรวจจับเซลล์อัตโนมัติ (AI Smart Microscope)',
+    name: 'กล้องจุลทรรศน์ตรวจจับเซลล์อัตโนมัติ (AI Smart Microscope)',
     category: 'ห้องแล็ป',
     icon: 'Microscope',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&auto=format&fit=crop&q=80',
+    image: '/src/assets/images/device_ai_microscope_1794304779084.jpg',
     description: 'กล้องจุลทรรศน์ในห้องปฏิบัตการชีววิทยาที่ติดตั้งกล้องดิจิทัลและ AI ช่วยนับจำนวนและแยกชนิดเซลล์',
     know: 'กล้อง CCD จับภาพกำลังขยายสูง แปลงภาพสไลด์พืช/สัตว์เป็นข้อมูลพิกเซลสี RGB',
     think: 'AI ใช้โครงข่ายประสาทเทียม (CNN) ตรวจหาขอบเขตของนิวเคลียสและผนังเซลล์ เพื่อจำแนกประเภทระยะการแบ่งเซลล์ (Mitosis)',
@@ -193,7 +193,7 @@ export const DEVICE_INSPECTOR_ITEMS: DeviceInspectorItem[] = [
     name: 'ชุดเซนเซอร์สมาร์ทฟาร์มและพาดหัวอากาศ (IoT Climate Sensor)',
     category: 'เครื่องมือสำรวจธรรมชาติ',
     icon: 'Sun',
-    image: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=500&auto=format&fit=crop&q=80',
+    image: '/src/assets/images/device_iot_smartfarm_1794304778907.jpg',
     description: 'อุปกรณ์วัดอุณหภูมิ ความชื้น แสง และแก๊ส CO2 ในแปลงทดลองพืชโรงเรียน',
     know: 'เซนเซอร์รับค่าฟิสิกส์และเคมี (ความดัน, ความชื้นสัมพัทธ์, ความเข้มแสง lux)',
     think: 'AI แบบ Time-Series Regression วิเคราะห์แนวโน้มสภาพอากาศเทียบกับอัตราการสังเคราะห์ด้วยแสงของพืช',
@@ -205,7 +205,7 @@ export const DEVICE_INSPECTOR_ITEMS: DeviceInspectorItem[] = [
     name: 'เครื่องวัดสัญญาณคลื่นไฟฟ้าหัวใจและชีพจร wearable',
     category: 'สมาร์ทดีไวซ์',
     icon: 'Activity',
-    image: 'https://images.unsplash.com/photo-1510519138161-584409383638?w=500&auto=format&fit=crop&q=80',
+    image: '/src/assets/images/device_wearable_ecg_1794304779903.jpg',
     description: 'สายรัดข้อมือหรือเครื่องตรวจวัดการทำงานของระบบหมุนเวียนเลือดขณะออกกำลังกาย',
     know: 'เซนเซอร์ PPG แสงอินฟราเรดตรวจจับการเปลี่ยนแปลงปริมาตรเลือดในหลอดเลือดฝอย',
     think: 'AI ค้นหารูปแบบกราฟ ECG (P-QRS-T wave) เพื่อตรวจจับภาวะหัวใจเต้นผิดจังหวะหรือความเค้น (Stress level)',
@@ -217,7 +217,7 @@ export const DEVICE_INSPECTOR_ITEMS: DeviceInspectorItem[] = [
     name: 'สมาร์ทโฟนระบบสแกนใบหน้าและความจำเสียง (Voice & Face ID)',
     category: 'อุปกรณ์ในโรงเรียน',
     icon: 'Smartphone',
-    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&auto=format&fit=crop&q=80',
+    image: '/src/assets/images/device_face_voice_id_1794304781060.jpg',
     description: 'โทรศัพท์มือถือหรือแท็บเล็ตที่ใช้ในการลงชื่อเข้าเรียนและปลดล็อกเครื่องด้วย AI',
     know: 'กล้อง TrueDepth ยิงจุดแสงอินฟราเรด 30,000 จุดสร้างแบบจำลอง 3 มิติของใบหน้า และไมโครโฟนรับคลื่นเสียง',
     think: 'AI เวกเตอร์เปรียบเทียบโครงสร้างมิติใบหน้าและความถี่เสียงกับฐานข้อมูลเดิมเพื่อยืนยันตัวตน',
@@ -316,7 +316,7 @@ export const PROMPT_SCIENCE_TEMPLATES = [
     title: 'โจทย์ปัญหาคิดวิเคราะห์พร้อมสถานการณ์ STEM',
     category: 'แบบฝึกหัด/ข้อสอบ',
     promptText: `คุณคือผู้ออกข้อสอบวัดสมรรถนะวิทยาศาสตร์ตามแนวทาง PISA
-โปรดสร้างสถานการณ์ปัญหา (Scenario) ทางวิทยาศาสตร์เทคโนโลยีในชีวิตประจำวัน 1 เรื่อง เกี่ยวกับ: [ระบุหัวข้อ เช่น ขยะพลาสติกในชุมชน / สานพลังงานโซลาร์เซลล์]
+โปรดสร้างสถานการณ์ปัญหา (Scenario) ทางวิทยาศาสตร์เทคโนโลยีในชีวิตประจำวัน 1 เรื่อง เกี่ยวกับ: [ระบุหัวข้อ เช่น ขยะพลาสติกในชุมชน / แผงพลังงานโซลาร์เซลล์]
 สำหรับนักเรียนชั้น: [ม.3]
 
 พร้อมคำถาม 3 ข้อ:
@@ -328,10 +328,10 @@ export const PROMPT_SCIENCE_TEMPLATES = [
   },
   {
     id: 'tmpl_3',
-    title: 'ตัวช่วยสร้างคำถามสocratic นำทางแล็ปวิทยาศาสตร์',
+    title: 'ตัวช่วยสร้างคำถามแบบโซเครติส (Socratic) นำทางแล็ปวิทยาศาสตร์',
     category: 'การตั้งคำถามในห้องเรียน',
     promptText: `คุณคือผู้ช่วยครูสอนปฏิบัติการวิทยาศาสตร์
-ช่วยคิดชุดคำถามปลายเปิดแบบสocratic (Socratic Questioning) จำนวน 5 ข้อ สำหรับใช้ถามนักเรียนในระหว่างทำแล็ปเรื่อง: [การแยกสารด้วยโครมาโทกราฟี]
+ช่วยคิดชุดคำถามปลายเปิดแบบโซเครติส (Socratic Questioning) จำนวน 5 ข้อ สำหรับใช้ถามนักเรียนในระหว่างทำแล็ปเรื่อง: [การแยกสารด้วยโครมาโทกราฟี]
 
 เป้าหมายคำถาม:
 - ไม่บอกคำตอบตรงๆ แต่นำทางให้นักเรียนสังเกตการเปลี่ยนแปลง

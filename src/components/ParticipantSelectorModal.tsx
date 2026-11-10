@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Participant } from '../types';
-import { X, UserPlus, CheckCircle2, Building, Briefcase } from 'lucide-react';
+import { X, UserPlus, CheckCircle2 } from 'lucide-react';
 import { getStoredParticipants, saveParticipants, setActiveParticipantId } from '../services/storageService';
+import { Avatar } from './Avatar';
 
 interface ParticipantSelectorModalProps {
   isOpen: boolean;
@@ -45,7 +46,7 @@ export const ParticipantSelectorModal: React.FC<ParticipantSelectorModalProps> =
       id: newId,
       name: newName.trim(),
       email: `${newId}@school.ac.th`,
-      avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80`,
+      avatar: '',
       demographics: {
         gender: newGender,
         age: newAge,
@@ -116,10 +117,10 @@ export const ParticipantSelectorModal: React.FC<ParticipantSelectorModalProps> =
                           : 'bg-slate-800/60 border-slate-700/60 hover:bg-slate-800 hover:border-slate-600'
                       }`}
                     >
-                      <img
+                      <Avatar
                         src={p.avatar}
-                        alt={p.name}
-                        className="w-12 h-12 rounded-full object-cover border border-slate-600 flex-shrink-0"
+                        name={p.name}
+                        className="w-12 h-12 border border-slate-600"
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">

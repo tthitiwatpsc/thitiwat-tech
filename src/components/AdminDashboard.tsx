@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Participant, InnovationProject } from '../types';
-import { Users, Award, ShieldAlert, Plus, Trash2, Edit, CheckCircle2, Search, Download, Star, Sparkles, Database, Save, Check } from 'lucide-react';
-import { saveParticipants, resetWorkshopData } from '../services/storageService';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { Users, Award, ShieldAlert, Trash2, Edit, Search, Download, Sparkles } from 'lucide-react';
+import { saveParticipants } from '../services/storageService';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { Avatar } from './Avatar';
 
 interface AdminDashboardProps {
   participants: Participant[];
@@ -18,9 +19,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [gradeScore, setGradeScore] = useState<number>(85);
   const [feedbackText, setFeedbackText] = useState<string>('');
 
-  // XP Edit Modal
+  // XP Edit Modal & Delete Confirm
   const [editingXpUser, setEditingXpUser] = useState<Participant | null>(null);
   const [newXpValue, setNewXpValue] = useState<number>(0);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   // Filter participants
   const filteredParticipants = participants.filter(p =>
@@ -67,11 +69,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   // Handlers
   const handleDeleteParticipant = (id: string) => {
-    if (confirm('ยืนยันการลบข้อมูลผู้เข้าอบรมท่านนี้?')) {
-      const updated = participants.filter(p => p.id !== id);
-      saveParticipants(updated);
-      onRefreshData();
-    }
+    const updated = participants.filter(p => p.id !== id);
+    saveParticipants(updated);
+    setConfirmDeleteId(null);
+    onRefreshData();
   };
 
   const handleUpdateXp = (e: React.FormEvent) => {
@@ -294,14 +295,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               {filteredParticipants.map((p) => (
                 <tr key={p.id} className="hover:bg-slate-800/40 transition-all">
                   <td className="p-3 flex items-center space-x-3">
-                    <img src={p.avatar} alt={p.name} className="w-8 h-8 rounded-full object-cover" />
+                    <Avatar src={p.avatar} name={p.name} className="w-8 h-8" />
                     <div>
                       <div className="font-bold text-slate-100">{p.name}</div>
                       <div className="text-[10px] text-slate-400">{p.email}</div>
                     </div>
                   </td>
                   <td className="p-3">{p.demographics?.schoolName || '-'}</td>
-                  <td className="p-3 font-extrabold text-amber-400">{p.xp} XP</td>
+                  <td className="p-3 font-extrabold text-amber-400 tabular-nums">{p.xp} XP</td>
                   <td className="p-3">
                     <div className="flex items-center space-x-1">
                       {Object.entries(p.completedMissions || {}).map(([mKey, isDone]) => (
@@ -315,24 +316,43 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       ))}
                     </div>
                   </td>
-                  <td className="p-3 text-right space-x-2">
-                    <button
-                      onClick={() => {
-                        setEditingXpUser(p);
-                        setNewXpValue(p.xp);
-                      }}
-                      className="p-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-lg"
-                      title="ปรับคะแนน XP"
-                    >
-                      <Edit className="w-3.5 h-3.5" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteParticipant(p.id)}
-                      className="p-1.5 bg-slate-800 hover:bg-rose-900/60 text-rose-400 rounded-lg"
-                      title="ลบผู้เรียน"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
+                  <td className="p-3 text-right">
+                    <div className="inline-flex items-center space-x-2">
+                      <button
+                        onClick={() => {
+                          setEditingXpUser(p);
+                          setNewXpValue(p.xp);
+                        }}
+                        className="p-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-lg"
+                        title="ปรับคะแนน XP"
+                      >
+                        <Edit className="w-3.5 h-3.5" />
+                      </button>
+                      {confirmDeleteId === p.id ? (
+                        <div className="inline-flex items-center space-x-1">
+                          <button
+                            onClick={() => handleDeleteParticipant(p.id)}
+                            className="px-2 py-1 bg-rose-600 hover:bg-rose-500 text-white text-[11px] font-bold rounded-lg"
+                          >
+                            ยืนยัน
+                          </button>
+                          <button
+                            onClick={() => setConfirmDeleteId(null)}
+                            className="px-2 py-1 bg-slate-700 hover:bg-slate-600 text-slate-200 text-[11px] rounded-lg"
+                          >
+                            ยกเลิก
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => setConfirmDeleteId(p.id)}
+                          className="p-1.5 bg-slate-800 hover:bg-rose-900/60 text-rose-400 rounded-lg"
+                          title="ลบผู้เรียน"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Participant, Badge } from '../types';
-import { X, Trophy, Medal, Award, Flame, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Participant } from '../types';
+import { X, Trophy, Medal, Award } from 'lucide-react';
 import { INITIAL_BADGES } from '../data/mockData';
+import { Avatar } from './Avatar';
 
 interface LeaderboardDrawerProps {
   isOpen: boolean;
@@ -28,7 +29,7 @@ export const LeaderboardDrawer: React.FC<LeaderboardDrawerProps> = ({
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-900/80">
           <div className="flex items-center space-x-2">
-            <Trophy className="w-5 h-5 text-yellow-400 animate-bounce" />
+            <Trophy className="w-5 h-5 text-yellow-400" />
             <h3 className="font-bold text-base text-slate-100">
               กระดานผู้นำเรียลไทม์ (Live Leaderboard)
             </h3>
@@ -85,10 +86,10 @@ export const LeaderboardDrawer: React.FC<LeaderboardDrawerProps> = ({
                       )}
                     </div>
 
-                    <img
+                    <Avatar
                       src={p.avatar}
-                      alt={p.name}
-                      className="w-10 h-10 rounded-full object-cover border border-slate-600 flex-shrink-0"
+                      name={p.name}
+                      className="w-10 h-10 border border-slate-600"
                     />
 
                     <div className="flex-1 min-w-0">
@@ -96,7 +97,7 @@ export const LeaderboardDrawer: React.FC<LeaderboardDrawerProps> = ({
                         <h5 className="font-semibold text-xs text-slate-100 truncate">
                           {p.name}
                         </h5>
-                        <span className="text-xs font-extrabold text-amber-400">
+                        <span className="text-xs font-extrabold text-amber-400 tabular-nums">
                           {p.xp} XP
                         </span>
                       </div>
